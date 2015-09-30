@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+
+import argparse
+
+ec = {
+	
+}
+
+class FociThing(object): pass
+
+class InstrumentedValue(FociThing):
+	def resolve(self):
+		raise NotImplementedError
+
+class ConfigShim(InstrumentedValue):
+	def __init__(self, resolver):
+		self.resolver = resolver
+	
+	def resolver(self):
+		raise NotImplementedError
+
+	def resolve(self):
+		return self.resolve(ec)
+
+
+parser = argparse.ArgumentParser(description='Process some integers.')
+subparsers = parser.add_subparsers(help="Foci command")
+
+# Establish a new project
+parser_establish = subparsers.add_parser("establish", help="Establish a new project")
+
+# Track an existing project
+parser_track = subparsers.add_parser("track", help="Track an existing project")
+
+# 
+parser_new_project = subparsers.add_parser("new-task")
+parser_new_project = subparsers.add_parser("interrupt")
+parser_new_project = subparsers.add_parser("todo")
+
+
+parser.add_argument('-p', '--project', dest='project',
+                   const=sum, default=max,
+                   help='sum the integers (default: find the max)')
+
+args = parser.parse_args()
+print(args.accumulate(args.integers))
