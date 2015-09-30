@@ -32,12 +32,46 @@ In open source projects, it may be convenient for project files to be shared.  Y
 `foci --global-config [--user-email=<email@address.example.com>] [--user-display=<First Last|Last, First|Nickname>]`
  * Set your default user info for your system
 
-`foci --global-config [--user-email=<email@address.example.com>] [--user-display=<First Last|Last, First|Nickname>]`
+`foci --project-config <project-name> [--user-email=<email@address.example.com>] [--user-display=<First Last|Last, First|Nickname>]`
  * Override your user info for a particular project
 
 ## Doing tasks
 
-foci start <task-name> [--time|-t <time_input>]
+Notes:
+* All of these commands will assume your current project, unless you pass in -p/--project=<project-name>
+* Any task change will allow you to specify a time with -s/--timestamp=<time_input>
+* Any operation that creates a task will accept -b/--base=<other_task_name> indicating a task is based on another task
+* Any operation creating or editing a task will accept -x/--external-ticket=<external-id>, for relating to external ticket systems.
+
+`foci task [-v]`
+* Display your current task
+
+`foci tasks [-v]
+* Display all tasks
+
+`foci task <task-name>`
+* Create a task or task type
+
+`foci todo [-v]`
+* Display the to-do list.
+
+`foci todo add <task-name> [<int>]`
+* Insert a new task to-do 
+
+`foci todo move <task-name> to <int>|+[<int>]|-[<int>]`
+* Move a priority to a specific position, or relatively up or down.
+
+`foci note [-t/--task <task-name>] [<text>]`
+* Attach a note to a task.  If not not in arguments, an editor will be invoked. If -t not specified, current task will be targeted.
+
+`foci start [<task-name>]`
+* Switch focus to a new or existing task. If matching task-name does not exist, or is resolved, a new one will be created.
+
+`foci resolve [<task-name>]`
+* Mark a task as resolved.  Automatically return your focus to the most recent unresolved task.
+
+`foci break`
+* Indicate that you are not working on anything.  Come back with simple `foci start`.
 
 ## Notes:
 
